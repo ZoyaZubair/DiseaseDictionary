@@ -5,7 +5,14 @@ const csv = require('csv-parser');
 const app = express();
 const PORT = 5000;
 
-app.use(cors());
+// Configure CORS to allow requests from your frontend domain
+const corsOptions = {
+  origin: 'https://disease-dictionary.vercel.app', // Replace with your actual frontend URL
+  methods: ['GET'], // Specify allowed methods (GET, POST, etc.)
+  allowedHeaders: ['Content-Type'], // Specify allowed headers
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Load diseases from CSV file into an array
