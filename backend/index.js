@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 5000;
 
 // Enable CORS for frontend communication
 app.use(cors({
-  origin: 'https://your-frontend-url.com' // Replace with the actual URL of your frontend
+  origin: 'https://disease-dictionary.vercel.app/' // Replace with the actual URL of your frontend
 }));
 
 app.use(express.json());
