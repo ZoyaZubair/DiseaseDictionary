@@ -1,19 +1,24 @@
+// Existing code in your backend server file (index.js or app.js)
+
 const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
 const csv = require('csv-parser');
+
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
-// Configure CORS to allow requests from your frontend domain
-const corsOptions = {
-  origin: 'https://disease-dictionary.vercel.app', // Replace with your actual frontend URL
-  methods: ['GET'], // Specify allowed methods (GET, POST, etc.)
-  allowedHeaders: ['Content-Type'], // Specify allowed headers
-};
+// Enable CORS for frontend communication
+app.use(cors({
+  origin: 'https://your-frontend-url.com' // Replace with the actual URL of your frontend
+}));
 
-app.use(cors(corsOptions));
 app.use(express.json());
+
+// Root route to display a message when accessing the root URL "/"
+app.get('/', (req, res) => {
+  res.send('Welcome to the Disease Dictionary API!');
+});
 
 // Load diseases from CSV file into an array
 let diseases = [];
@@ -38,6 +43,7 @@ app.get('/api/disease/:name', (req, res) => {
   }
 });
 
+// Start the server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
